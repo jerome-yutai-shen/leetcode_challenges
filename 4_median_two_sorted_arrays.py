@@ -9,10 +9,8 @@ from typing import List
 
 
 class Solution:
-    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+    def findMedianSortedArrays2(self, nums1: List[int], nums2: List[int]) -> float:
 
-        # write your code here
-        # write your code here
         len_a, len_b = len(nums1), len(nums2)
         if (len_a + len_b) % 2 == 1:
             return self.find_kth(nums1, nums2, (len_a + len_b) // 2 + 1)
@@ -58,3 +56,30 @@ class Solution:
         if array[left] <= flag:
             return left + 1
         return 0
+
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
+
+
+        m, n = len(nums1), len(nums2)
+        left, right = 0, m
+
+        while left <= right:
+            partitionA = (left + right) // 2
+            partitionB = (m + n + 1) // 2 - partitionA
+
+            maxLeftA = float('-inf') if partitionA == 0 else nums1[partitionA - 1]
+            minRightA = float('inf') if partitionA == m else nums1[partitionA]
+            maxLeftB = float('-inf') if partitionB == 0 else nums2[partitionB - 1]
+            minRightB = float('inf') if partitionB == n else nums2[partitionB]
+
+            if maxLeftA <= minRightB and maxLeftB <= minRightA:
+                if (m + n) % 2 == 0:
+                    return (max(maxLeftA, maxLeftB) + min(minRightA, minRightB)) / 2
+                else:
+                    return max(maxLeftA, maxLeftB)
+            elif maxLeftA > minRightB:
+                right = partitionA - 1
+            else:
+                left = partitionA + 1

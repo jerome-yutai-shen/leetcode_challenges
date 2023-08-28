@@ -6,6 +6,7 @@ Created on Jun 08 05:52:21 2022
 
 """
 from common_classes import ListNode
+from typing import Optional
 
 
 def deleteDuplicates(head: ListNode) -> ListNode:
@@ -33,3 +34,5 @@ def deleteDuplicates(head: ListNode) -> ListNode:
         head = head.next
 
     return sentinel.next
+
+

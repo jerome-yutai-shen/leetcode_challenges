@@ -50,3 +50,120 @@ def reverse_list3(head: Optional[ListNode]) -> Optional[ListNode]:
     head.next.next = head
     head.next = None
     return p
+
+
+class Solution:
+    def reverseList2(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev = None
+        curr = head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+
+        return prev
+
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        递归
+        """
+        if (not head) or (not head.next):
+            if not head:
+                print(f"head type: {type(head)}")
+            else:
+                print(f"head is a node, and head is {head.val}, head.next is {head.next}")
+
+            return head
+
+        p = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return p
+
+    def reverseList3(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        头插
+        """
+        if not head:
+            return head
+
+        new_head = ListNode(-1)
+
+        while head:
+            next = head.next # 断开重连
+            head.next = new_head.next # 断开重连
+            new_head.next = head # 断开重连
+
+            head = next # 整体移动，冒名顶替
+
+        return new_head.next
+
+    def reverseList21(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        leetcoe 迭代
+        """
+
+        prev = None
+
+        while head:
+            next = head.next # 断开重连
+            head.next = prev # 断开重连
+
+            prev = head # 整体移动，冒名顶替
+            head = next # 整体移动，冒名顶替
+
+        return prev
+
+    def reverseList_3p(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+
+        p_prev = None
+        p_curr = head
+
+        while p_curr:
+            p_next, p_curr.next  = p_curr.next, p_prev # 交换
+
+            p_prev = p_curr # 整体移动，冒名顶替
+            p_curr = p_next # 整体移动，冒名顶替
+
+        return head
+
+    def reverseList_iter(self, head):
+        if not head or not head.next:
+            return head
+
+        p_begin = None
+        p_mid = head
+        p_end = head.next
+
+        while True:
+            p_mid.next = p_begin
+            if p_end is None:
+                break
+            """
+            整体向后移动 3 个指针
+            """
+            p_begin = p_mid
+            p_mid = p_end
+            p_end = p_end.next
+            """
+            最后修改 head 头指针的指向
+            """
+            head = p_mid
+
+        return head
+
+
+
+
+if __name__ == "__main__":
+    head = ListNode(1)
+    head.next = ListNode(2)
+    head.next.next = ListNode(3)
+    head.next.next.next = ListNode(4)
+    head.next.next.next.next = ListNode(5)
+
+    solution = Solution()
+    new_head =solution.reverseList3(head)

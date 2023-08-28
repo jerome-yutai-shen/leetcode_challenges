@@ -9,6 +9,7 @@ from common_classes import BinaryTreeNode
 from typing import List, Optional
 import math
 
+
 class Solution:
 
     def isValidBST(self, root: Optional[BinaryTreeNode]) -> bool:

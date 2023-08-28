@@ -25,7 +25,8 @@ class Solution:
 
                 if node and node.left:
                     nodes_queue.append(node.left)
-                if node and node.right:
+                # if node and node.right: # 116 可以不加这个判断，因为是perfect binary tree， 117 才需要
+                    assert node.right
                     nodes_queue.append(node.right)
 
         return root

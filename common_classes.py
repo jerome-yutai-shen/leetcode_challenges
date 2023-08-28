@@ -5,7 +5,7 @@ Created on May 29 21:48:13 2022
 @author: Jerome Yutai Shen
 
 """
-from typing import Optional, Union
+from typing import Optional, Union, List
 
 
 class ListNode:
@@ -20,6 +20,12 @@ class BinaryTreeNode:
         self.left = left
         self.right = right
         self.next = next
+
+
+class GraphNode:
+    def __init__(self, val = 0, neighbors = Optional[List]):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
 
 
 def print_bitwise_shift(x: int):

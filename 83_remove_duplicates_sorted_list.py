@@ -6,6 +6,7 @@ Created on Jun 08 05:51:01 2022
 
 """
 from common_classes import ListNode
+from typing import Optional
 
 
 class Solution:

@@ -58,3 +58,10 @@ class Solution:
         remains = maxWidth - taken - (n_word - 1)
 
         return ' '.join(arr) + ' ' * remains
+
+
+if __name__ == "__main__":
+    words = ["This", "is", "an", "example", "of", "text", "justification."]
+    maxWidth = 16
+    solution = Solution()
+    xx = solution.fullJustify(words, maxWidth)
