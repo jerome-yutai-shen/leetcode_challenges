@@ -27,6 +27,28 @@ def permute(nums: List[int]) -> List[List[int]]:
     return res
 
 
+def permute2(nums: List[int]) -> List[List[int]]:
+    res = []
+    path = []
+    used = [False] * len(nums)
+
+    def backtrack():
+        if len(path) == len(nums):
+            res.append(path[:])  # 拷贝当前路径
+            return
+        for i in range(len(nums)):
+            if used[i]:
+                continue
+            used[i] = True
+            path.append(nums[i])
+            backtrack()
+            path.pop()
+            used[i] = False
+
+    backtrack()
+    return res
+
+
 def permute_stack_approach(nums: List[int]) -> List[List[int]]:
     """
     :type nums: List[int]

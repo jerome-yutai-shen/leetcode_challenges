@@ -10,11 +10,14 @@ from typing import List
 import collections
 
 
+DIRECTIONS = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
+
 class Solution:
     """ BFS """
     def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
         rows, cols = len(maze), len(maze[0])
-        dirs = ((1, 0), (-1, 0), (0, 1), (0, -1))
+
 
         # Mark the entrance as visited since its not a exit.
         start_row, start_col = entrance
@@ -29,7 +32,7 @@ class Solution:
             curr_row, curr_col, curr_distance = queue.popleft()
 
             # For the current cell, check its four neighbor cells.
-            for d in dirs:
+            for d in DIRECTIONS:
                 next_row = curr_row + d[0]
                 next_col = curr_col + d[1]
 

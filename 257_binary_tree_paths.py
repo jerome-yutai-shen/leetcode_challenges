@@ -23,10 +23,13 @@ def binary_tree_paths(root: BinaryTreeNode):
         node, path = stack.pop()
         if not node.left and not node.right:
             paths.append(path)
-        if node.left:
-            stack.append((node.left, path + '->' + str(node.left.val)))
+
         if node.right:
             stack.append((node.right, path + '->' + str(node.right.val)))
+
+        if node.left:
+            stack.append((node.left, path + '->' + str(node.left.val)))
+
 
     return paths
 

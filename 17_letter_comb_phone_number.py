@@ -5,10 +5,12 @@ Created on May 25 12:25:41 2022
 @author: Jerome Yutai Shen
 
 """
-from typing import List
+
+from typing import Dict, List
+import itertools
 
 
-KEYBOARD = {
+KEYBOARD: Dict[str, str] = {
     '2': 'abc',
     '3': 'def',
     '4': 'ghi',
@@ -65,6 +67,57 @@ def letterCombinations2(digits: str) -> List[str]:
         prefixes = stems
 
     return prefixes
+
+
+class Solution2:
+    def letterCombinations(self, digits: str) -> List[str]:
+        # If the input is empty, immediately return an empty answer array
+        if len(digits) == 0:
+            return []
+
+        def backtrack(index: int, path):
+            # If the path is the same length as digits, we have a complete combination
+            if len(path) == len(digits):
+                combinations.append("".join(path))
+                return  # Backtrack
+
+            # Get the letters that the current digit maps to, and loop through them
+            possible_letters = KEYBOARD[digits[index]]
+            for letter in possible_letters:
+                # Add the letter to our current path
+                path.append(letter)
+                # Move on to the next digit
+                backtrack(index + 1, path)
+                # Backtrack by removing the letter before moving onto the next
+                path.pop()
+
+        # Initiate backtracking with an empty path and starting index of 0
+        combinations = []
+        backtrack(0, [])
+        return combinations
+
+    def letterCombinations2(self, digits: str):
+        if not digits:
+            return []
+
+        res = []
+
+        def backtrack(index: int, path):
+            if index == len(digits):
+                res.append(path)
+                return
+            for char in KEYBOARD[digits[index]]:
+                backtrack(index + 1, path + char)
+
+        backtrack(0, "")
+        return res
+
+    def with_itertools(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        groups = [KEYBOARD[d] for d in digits]
+        return [''.join(p) for p in itertools.product(*groups)]
 
 
 if __name__ == "__main__":

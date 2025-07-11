@@ -87,6 +87,17 @@ def two_sum_leetcode(nums: List[int], target: int) -> List:
         hashmap[nums[i]] = i
 
 
+def two_sum_leetcode2(nums: List[int], target: int) -> List[int]:
+
+    # value_idx = sorted([(num, idx) for idx, num in enumerate(nums)])
+    hashmap = { }
+    for idx, num in enumerate(nums):
+        complement = target - num
+        if complement in hashmap:
+            return [idx, hashmap[complement]]
+        hashmap[num] = idx
+
+
 if __name__ == "__main__":
     two_sum2([1, 2, 2, 3, 3, 4], 6)
     two_sum2([3, 2, 4, 4, 6, 2, 9, -1], 8)

@@ -91,6 +91,26 @@ class Solution:
 
         return int(diff != 0) + int(diff < 0)
 
+    def isWinner1(self, player1, player2):
+        def compute_score(rolls):
+            score = 0
+            for i in range(len(rolls)):
+                if (i >= 1 and rolls[i - 1] == 10) or (i >= 2 and rolls[i - 2] == 10):
+                    score += 2 * rolls[i]
+                else:
+                    score += rolls[i]
+            return score
+
+        score1 = compute_score(player1)
+        score2 = compute_score(player2)
+
+        if score1 > score2:
+            return 1
+        elif score2 > score1:
+            return 2
+        else:
+            return 0
+
 
 
 if __name__ == "__main__":

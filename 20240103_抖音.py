@@ -33,8 +33,9 @@ class RLEDecoder:
         else:
             return 0
 
-    def str_decoder正则表达式把时间复杂度提升了一个维度！(self):
-        """用正则表达式 时间复杂度是O(TP) Let T,P be the lengths of the text and the pattern respectively."""
+    def str_decoder(self):
+        """正则表达式把时间复杂度提升了一个维度！
+        用正则表达式 时间复杂度是O(TP) Let T,P be the lengths of the text and the pattern respectively."""
         _s = re.findall(PATTERN, self.raw_s)
         for c in _s:
             k, v = c[0], int(c[1:])
@@ -83,10 +84,27 @@ def str_decoder2(raw_s):
     return char_cnt
 
 
+def str_decoder(raw_s):
+    """
+    不用那么复杂吧
+    """
+    counts = defaultdict(int)
+    idx = 0
+    while idx < len(raw_s):
+        char = raw_s[idx]
+        idx += 1
+        count = ""
+        while idx < len(raw_s) and raw_s[idx].isdigit():
+            count += raw_s[idx]
+            idx += 1
+        counts[char] += int(count)
+    return dict(counts)
+
+
 if __name__ == "__main__":
     '''
-    print(str_decoder2("a1b2z3a10"))
-    print(str_decoder2("a1b3z5a33"))
+    print(str_decoder("a1b2z3a10"))
+    print(str_decoder("a1b3z5a33"))
     '''
 
     s = "a1b2z3a10"

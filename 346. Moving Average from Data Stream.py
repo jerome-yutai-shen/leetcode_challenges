@@ -42,3 +42,33 @@ class MovingAverage:
         # Calculate and return the moving average.
         # Use min to get the correct count of elements if the window is not fully filled.
         return self.window_sum / min(self.count, len(self.queue))
+
+
+from collections import deque
+"""
+直接用mean效率是O(k)
+"""
+class MovingAverage2:
+    def __init__(self, size: int):
+        self.q = deque()
+        self.size = size
+        self.total = 0
+
+    def next(self, val: int) -> float:
+        self.q.append(val)
+        self.total += val
+        if len(self.q) > self.size:
+            self.total -= self.q.popleft()
+        return self.total / len(self.q)
+
+class MovingAverage3:
+    def __init__(self, size: int):
+        self.q = deque(maxlen=size)
+        self.total = 0.0
+
+    def next(self, val: int) -> float:
+        if len(self.q) == self.q.maxlen:
+            self.total -= self.q[0]  # 手动减去即将被弹出的旧值
+        self.q.append(val)
+        self.total += val
+        return self.total / len(self.q)

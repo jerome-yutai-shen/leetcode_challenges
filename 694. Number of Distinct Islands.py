@@ -7,8 +7,10 @@ Created on Jan 14 22:46:28 2024
 711
 """
 
+from typing import List
 
-class Solution:
+
+class Solution1:
 
     def __init__(self):
         self.n = 0
@@ -41,3 +43,28 @@ class Solution:
                 continue
             self.dfs(nx, ny, grid, aIsland, bx, by)
 
+
+class Solution:
+    def numDistinctIslands(self, grid: List[List[int]]) -> int:
+        def dfs(r, c, direction, path):
+            if 0 <= r < rows and 0 <= c < cols and grid[r][c] == 1:
+                grid[r][c] = 0
+                path.append(direction)
+                dfs(r + 1, c, 'D', path)
+                dfs(r - 1, c, 'U', path)
+                dfs(r, c + 1, 'R', path)
+                dfs(r, c - 1, 'L', path)
+                path.append('B')
+            return path
+
+        rows, cols = len(grid), len(grid[0])
+        shapes = set()
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == 1:
+                    shape = tuple(dfs(r, c, 'O', []))  # 'O' 是起点标记
+                    # print(shape)
+                    shapes.add(shape)
+
+        return len(shapes)

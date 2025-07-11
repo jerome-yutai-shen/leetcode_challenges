@@ -38,6 +38,11 @@ class Solution:
         return nodesVisited == numCourses
 
 
+class Solution2:
+    def canFinish(self, numCourses, prerequisites) -> bool:
+
+        return num_finished == numCourses
+
 if __name__ == "__main__":
     func = Solution().canFinish
     func(2, [[1, 0]])
